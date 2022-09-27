@@ -1,27 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <DropDown
+    v-model="selectedDropDown"
+    :options="countryData"
+    class="flex flex-col items-center mt-10 max-w-[300px] w-full mx-auto"
+  />
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import HelloWorld from "./components/HelloWorld.vue";
+<script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import DropDown from '@/components/DropDown.vue';
 
-export default defineComponent({
-  name: "App",
-  components: {
-    HelloWorld,
-  },
+const selectedDropDown = ref('');
+const countryData = ref([]);
+
+onMounted(() => {
+  fetch('/country.json')
+    .then((response) => response.json())
+    .then((data) => (countryData.value = data));
 });
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="scss"></style>

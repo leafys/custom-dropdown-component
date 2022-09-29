@@ -7,11 +7,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import DropDown from '@/components/DropDown.vue';
+import { onMounted, Ref, ref } from 'vue';
+import DropDown from '@/components/DropDown/DropDown.vue';
+
+type Countrys = {
+  id: string | number;
+  country: string;
+};
 
 const selectedDropDown = ref('');
-const countryData = ref([]);
+const countryData: Ref<Countrys[]> = ref([]);
 
 onMounted(() => {
   fetch('/country.json')
